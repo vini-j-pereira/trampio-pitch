@@ -1,0 +1,54 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #ff5a00;
+  --color-primary-hover: #e65100;
+  --color-accent: #ff8a50;
+  --color-background: #ffffff;
+  --color-foreground: #0f172a;
+}
+
+:root {
+  --background: #ffffff;
+  --foreground: #0f172a;
+  --primary: #ff5a00;
+  --radius: 1.5rem;
+}
+
+@layer base {
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+  }
+}
+
+@layer components {
+  .premium-gradient-text {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary to-[#ff8a50];
+  }
+
+  .section-container {
+    @apply max-w-7xl mx-auto px-6 py-24;
+  }
+
+  .glass-card {
+    @apply bg-white/70 backdrop-blur-xl border border-black/5 shadow-2xl rounded-[2.5rem];
+  }
+
+  .pitch-button {
+    @apply bg-primary hover:bg-primary-hover text-white px-8 py-4 rounded-2xl font-bold transition-all hover:scale-105 active:scale-95 shadow-xl shadow-primary/20;
+  }
+}
+
+/* Animations */
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
