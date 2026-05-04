@@ -92,6 +92,13 @@ const projection12Months = [
   { name: 'Otimista', users: '1.000-1.200', mrr: 'R$ 50k - 70k', color: '#ff5a00' },
 ];
 
+const getNinjaReviewsData = [
+  { rating: '5 Estrelas', count: '89.385', percentage: 50, color: '#10b981' },
+  { rating: '4 Estrelas', count: '17.879', percentage: 10, color: '#84cc16' },
+  { rating: '3-2 Estrelas', count: '17.879', percentage: 10, color: '#f59e0b' },
+  { rating: '1 Estrela', count: '53.637', percentage: 30, color: '#ef4444' },
+];
+
 const CustomTooltip = ({ active, payload }: any) => {
   if (active && payload && payload.length) {
     return (
@@ -149,6 +156,8 @@ const FeatureCard = ({ icon, title, description, items = [], color = "primary" }
 );
 
 export default function Presentation() {
+  const [showContact, setShowContact] = React.useState(false);
+
   return (
     <div className="bg-white min-h-screen selection:bg-primary/20 font-sans">
       
@@ -170,9 +179,47 @@ export default function Presentation() {
             <a href="#parte2" className="hover:text-primary transition-colors">2. Mercado & Escala</a>
             <a href="#parte3" className="hover:text-primary transition-colors">3. Investimento</a>
           </div>
-          <button className="pitch-button text-[10px] px-8 py-3 uppercase tracking-widest hidden sm:flex">
-            Pitch Deck 2026
-          </button>
+          <div className="relative">
+            <button 
+              onClick={() => setShowContact(!showContact)}
+              className="pitch-button text-[10px] px-8 py-3 uppercase tracking-widest hidden sm:flex"
+            >
+              Pitch Deck 2026
+            </button>
+            
+            {showContact && (
+              <motion.div 
+                initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                className="absolute top-full right-0 mt-4 w-72 bg-white rounded-3xl border border-black/5 shadow-2xl p-8 z-[200]"
+              >
+                <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-6">Informações de Contato</h4>
+                <div className="space-y-6">
+                  <a href="mailto:vinicius@trampio.com" className="flex items-center gap-4 group">
+                    <div className="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-all">
+                      <FileText className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <p className="text-[10px] font-black text-slate-400 uppercase tracking-tighter">E-mail</p>
+                      <p className="text-xs font-bold text-slate-900">vinicius@trampio.com</p>
+                    </div>
+                  </a>
+                  <a href="https://www.trampio.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 group">
+                    <div className="w-10 h-10 rounded-xl bg-slate-100 text-slate-600 flex items-center justify-center group-hover:bg-slate-900 group-hover:text-white transition-all">
+                      <Globe className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <p className="text-[10px] font-black text-slate-400 uppercase tracking-tighter">Website</p>
+                      <p className="text-xs font-bold text-slate-900">www.trampio.com</p>
+                    </div>
+                  </a>
+                </div>
+                <div className="mt-8 pt-6 border-t border-black/5">
+                  <p className="text-[10px] font-bold text-slate-400 italic">“Conectando eficiência e profissionalismo.”</p>
+                </div>
+              </motion.div>
+            )}
+          </div>
         </div>
       </nav>
 
@@ -286,6 +333,82 @@ export default function Presentation() {
               <p className="text-lg text-slate-500 leading-relaxed">
                 As reclamações nas lojas de aplicativos revelam um modelo que parou no tempo. O profissional hoje se sente "refém" de sistemas que priorizam o lucro sobre o lead, em vez do sucesso do serviço.
               </p>
+            </div>
+
+            {/* NEW CHART SECTION */}
+            <div className="max-w-5xl mx-auto mb-24">
+              <div className="grid lg:grid-cols-12 gap-8 items-center">
+                <div className="lg:col-span-4 space-y-6">
+                  <div className="p-8 rounded-[2.5rem] bg-white border border-black/5 shadow-xl">
+                    <div className="flex items-center gap-4 mb-4">
+                      <div className="w-12 h-12 rounded-2xl bg-slate-100 flex items-center justify-center text-slate-600">
+                        <Rocket className="w-6 h-6" />
+                      </div>
+                      <div>
+                        <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">GetNinja App</p>
+                        <p className="text-2xl font-black text-slate-900">5M+ Downloads</p>
+                      </div>
+                    </div>
+                    <div className="pt-6 border-t border-black/5">
+                      <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Base de Avaliações</p>
+                      <p className="text-3xl font-black text-primary">179.000</p>
+                      <p className="text-[10px] font-bold text-slate-400 italic mt-1">Profissionais e Clientes</p>
+                    </div>
+                  </div>
+
+                  <div className="p-8 rounded-[2.5rem] bg-red-600 text-white shadow-2xl relative overflow-hidden group">
+                    <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:scale-110 transition-transform">
+                      <TrendingDown className="w-24 h-24" />
+                    </div>
+                    <p className="text-[10px] font-black uppercase tracking-widest mb-2 opacity-60">Volume de Insatisfação</p>
+                    <p className="text-4xl font-black mb-2 tracking-tighter">71.516</p>
+                    <p className="text-xs font-bold leading-tight opacity-80">
+                      Profissionais que avaliaram entre 1 e 3 estrelas. <br />
+                      <span className="text-white font-black underline decoration-white/30 underline-offset-4 mt-2 inline-block uppercase">40% da base ativa frustrada.</span>
+                    </p>
+                  </div>
+                </div>
+
+                <div className="lg:col-span-8 p-10 md:p-12 rounded-[3rem] bg-slate-50 border border-black/5 shadow-inner">
+                  <div className="flex justify-between items-end mb-10">
+                    <div>
+                      <h4 className="text-xs font-black text-slate-400 uppercase tracking-widest mb-2">Análise de Sentimento</h4>
+                      <h3 className="text-2xl font-black text-slate-900 tracking-tighter">Distribuição de Notas</h3>
+                    </div>
+                    <div className="text-right">
+                      <p className="text-4xl font-black text-slate-900 tracking-tighter">3.7<span className="text-xl">/5</span></p>
+                      <p className="text-[10px] font-black text-red-500 uppercase tracking-widest">Média do Líder</p>
+                    </div>
+                  </div>
+
+                  <div className="space-y-6">
+                    {getNinjaReviewsData.map((item, i) => (
+                      <div key={i} className="relative">
+                        <div className="flex justify-between items-center mb-2 px-1">
+                          <span className="text-[11px] font-black text-slate-600 uppercase tracking-tighter">{item.rating}</span>
+                          <span className="text-[11px] font-black text-slate-400">{item.count} profissionais ({item.percentage}%)</span>
+                        </div>
+                        <div className="h-4 bg-slate-200 rounded-full overflow-hidden border border-black/5">
+                          <motion.div 
+                            initial={{ width: 0 }}
+                            whileInView={{ width: `${item.percentage}%` }}
+                            transition={{ duration: 1, delay: i * 0.1, ease: "easeOut" }}
+                            className="h-full rounded-full"
+                            style={{ backgroundColor: item.color }}
+                          />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="mt-12 p-6 bg-white rounded-2xl border border-black/5 flex items-center gap-4">
+                    <AlertCircle className="w-5 h-5 text-red-500 shrink-0" />
+                    <p className="text-[11px] font-bold text-slate-500 leading-relaxed italic">
+                      “O modelo de 'aposta' por lead gera uma base polarizada. Quase 1/3 dos usuários avaliam com a nota mínima devido ao prejuízo financeiro.”
+                    </p>
+                  </div>
+                </div>
+              </div>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
@@ -521,10 +644,10 @@ export default function Presentation() {
 
           <div className="p-20 rounded-[4rem] bg-white border border-black/5 shadow-2xl text-center relative overflow-hidden group">
             <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-            <h3 className="text-xs font-black text-primary uppercase tracking-[0.4em] mb-12 relative z-10">Posicionamento Estratégico</h3>
+            <h3 className="text-xs font-black text-primary uppercase tracking-[0.4em] mb-12 relative z-10">O Fim da Aposta</h3>
             <h2 className="text-4xl md:text-7xl font-black text-slate-900 tracking-tighter leading-[0.9] relative z-10 transition-transform group-hover:scale-[1.02] duration-500">
-              “A Trampio não está competindo para <span className="text-slate-400">conectar</span>. <br className="hidden md:block" /> 
-              Está competindo para <span className="premium-gradient-text underline decoration-primary/20 underline-offset-[12px]">estruturar o trabalho.</span>”
+              “Onde o mercado enxerga um lead para <span className="text-slate-400">vender</span>, <br className="hidden md:block" /> 
+              nós enxergamos um negócio para <span className="premium-gradient-text underline decoration-primary/20 underline-offset-[12px]">estruturar.</span>”
             </h2>
           </div>
         </div>
@@ -929,6 +1052,61 @@ export default function Presentation() {
                 </div>
              </div>
           </div>
+          
+          {/* 3.5 POTENCIAL DE CONVERSÃO DIRETA */}
+          <div className="mb-32">
+            <div className="p-16 rounded-[4rem] bg-primary text-white relative overflow-hidden shadow-3xl">
+              <div className="absolute top-0 right-0 p-12 opacity-10 rotate-12"><TrendingUp className="w-64 h-64" /></div>
+              <div className="relative z-10 grid lg:grid-cols-2 gap-16 items-center">
+                <div>
+                  <h3 className="text-xs font-black uppercase tracking-[0.3em] mb-8 opacity-60">O Oceano Azul da Frustração</h3>
+                  <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-8 leading-none">
+                    Capturando o <br /><span className="text-slate-900">Público Pagante.</span>
+                  </h2>
+                  <p className="text-xl font-medium mb-12 opacity-90">
+                    “Não precisamos convencer o profissional a pagar por uma solução. Ele já paga. Só precisamos oferecer uma que funcione.”
+                  </p>
+                  <div className="flex items-center gap-6 p-6 bg-black/20 rounded-2xl border border-white/10">
+                    <CheckCircle2 className="w-8 h-8 text-white shrink-0" />
+                    <p className="text-sm font-bold uppercase tracking-widest leading-relaxed">
+                      71.516 profissionais com intenção de pagamento validada e insatisfação crítica.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="bg-white text-slate-900 p-12 rounded-[3rem] shadow-2xl">
+                  <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-6">Projeção de Captura (Público GetNinja)</p>
+                  <div className="space-y-10">
+                    <div>
+                      <div className="flex justify-between items-end mb-2">
+                        <span className="text-xs font-black text-slate-400 uppercase">Volume Alvo</span>
+                        <span className="text-3xl font-black text-success">71.516</span>
+                      </div>
+                      <div className="h-2 bg-slate-100 rounded-full overflow-hidden">
+                        <div className="h-full bg-success w-full" />
+                      </div>
+                      <p className="text-[10px] font-bold text-slate-400 mt-2 italic">Profissionais em migração para a Trampio</p>
+                    </div>
+
+                    <div className="pt-8 border-t border-black/5">
+                      <p className="text-[10px] font-black text-primary uppercase tracking-widest mb-2">Potencial de Receita (MRR)</p>
+                      <p className="text-6xl font-black tracking-tighter text-slate-900">R$ 3.5M<span className="text-2xl">/mês</span></p>
+                      <p className="text-[10px] font-bold text-slate-400 mt-4 leading-relaxed">
+                        Cálculo baseado em ticket médio SaaS de R$ 49,90/mês. <br />
+                        <span className="text-primary font-black">100% de market share desse grupo específico.</span>
+                      </p>
+                    </div>
+
+                    <div className="pt-8">
+                       <div className="inline-flex items-center gap-2 px-4 py-2 bg-slate-900 text-white rounded-full text-[10px] font-black uppercase tracking-widest">
+                          <Zap className="w-3 h-3 text-primary" /> Captura de Alta Conversão
+                       </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
 
           {/* CLOSING */}
           <div className="text-center max-w-4xl mx-auto">
@@ -945,23 +1123,40 @@ export default function Presentation() {
                   E é isso que define quem ganha esse mercado.
                 </p>
                 <div className="flex flex-col sm:flex-row justify-center gap-6">
-                   <button className="pitch-button text-2xl px-16 py-8">VAMOS NESSA?</button>
-                   <button className="px-16 py-8 rounded-3xl border border-white/20 text-xl font-bold hover:bg-white/5 transition-all">Sumário Executivo</button>
+                   <a href="mailto:vinicius@trampio.com" className="pitch-button text-2xl px-16 py-8">VAMOS NESSA?</a>
+                   <button onClick={() => window.print()} className="px-16 py-8 rounded-3xl border border-white/20 text-xl font-bold hover:bg-white/5 transition-all">Sumário Executivo</button>
                 </div>
              </motion.div>
+          </div>
+
+          <div className="mt-32 p-20 rounded-[4rem] bg-white border border-black/5 shadow-2xl text-center relative overflow-hidden group">
+            <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+            <h3 className="text-xs font-black text-primary uppercase tracking-[0.4em] mb-12 relative z-10">Posicionamento Estratégico</h3>
+            <h2 className="text-4xl md:text-7xl font-black text-slate-900 tracking-tighter leading-[0.9] relative z-10 transition-transform group-hover:scale-[1.02] duration-500">
+              “A Trampio não está competindo para <span className="text-slate-400">conectar</span>. <br className="hidden md:block" /> 
+              Está competindo para <span className="premium-gradient-text underline decoration-primary/20 underline-offset-[12px]">estruturar o trabalho.</span>”
+            </h2>
           </div>
         </div>
       </section>
 
       {/* FOOTER */}
       <footer className="py-20 bg-slate-950 border-t border-white/5 text-center">
-         <Image 
-            src="/images/logolpreta.png" 
-            alt="Trampio Logo" 
-            width={150} 
-            height={40} 
-            className="h-8 w-auto object-contain mx-auto mb-10 invert opacity-40"
-         />
+          <Image 
+             src="/images/logolbranca.png" 
+             alt="Trampio Logo" 
+             width={400} 
+             height={120} 
+             className="h-32 w-auto object-contain mx-auto mb-10 -mt-10 [filter:hue-rotate(30deg)_saturate(20)_brightness(1.2)]"
+          />
+         <div className="flex flex-col md:flex-row justify-center items-center gap-8 mb-10 text-[10px] font-black uppercase tracking-widest text-white/40">
+            <a href="mailto:vinicius@trampio.com" className="hover:text-primary transition-colors flex items-center gap-2">
+               <FileText className="w-4 h-4" /> vinicius@trampio.com
+            </a>
+            <a href="https://www.trampio.com" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors flex items-center gap-2">
+               <Globe className="w-4 h-4" /> www.trampio.com
+            </a>
+         </div>
          <p className="text-[10px] font-black uppercase tracking-[0.5em] text-white/20">
            Trampio &copy; 2026 &bull; Floripa &bull; Brazil &bull; Todos os direitos reservados
          </p>

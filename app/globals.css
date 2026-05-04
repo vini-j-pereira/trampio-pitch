@@ -109,3 +109,59 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #ff5a0088;
 }
+
+@media print {
+  nav, footer, button, .pitch-button, .no-print {
+    display: none !important;
+  }
+  
+  @page {
+    size: A4 portrait;
+    margin: 0;
+  }
+
+  body {
+    background: white !important;
+    color: black !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  
+  section {
+    page-break-before: always;
+    page-break-inside: auto;
+    padding: 4rem 0 !important;
+    min-height: 100vh;
+    display: block !important;
+  }
+
+  /* Evita que cards e gráficos sejam cortados ao meio */
+  .glass-card, .stat-card, div[class*="rounded-"], .grid > div, .p-12, .p-20, .recharts-wrapper {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+    margin-bottom: 2rem !important;
+  }
+
+  h1, h2, h3 {
+    page-break-after: avoid !important;
+  }
+
+  .section-container {
+    max-width: 100% !important;
+    padding: 0 4rem !important;
+  }
+
+  /* Força a renderização de cores e fundos */
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+
+  /* Ajuste para que gradientes apareçam na impressão */
+  .premium-gradient-text {
+    color: #ff5a00 !important;
+    -webkit-text-fill-color: #ff5a00 !important;
+  }
+}
